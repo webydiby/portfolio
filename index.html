@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
+  <title>준비된 디자이너 정재훈</title>
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+      box-sizing: border-box;
+      color: inherit;
+      font-family: 'IBM Plex Sans KR';
+      vertical-align: top;
+    }
+
+    body {
+      overflow: hidden;
+      color: hsl(0, 0%, 20%);;
+      font-size: 16px;
+    }
+    </style>
+  <style>
+    #splash {
+      position: fixed;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100vh;
+      background: crimson;
+      animation: fade-out var(--fade) var(--totalDelay) ease forwards;
+      
+      &, * {
+        --drop: 750ms;
+        --delay: 1000ms;
+        --flip: 500ms;
+        --fade: 500ms;
+        --totalDelay: calc(var(--drop) * 0.5 + (var(--delay) + var(--flip)) * var(--step, 3));
+        --gutter: 1.5em;
+      }
+
+      .card,
+      .card-shadow {
+        z-index: calc(100 - var(--page));
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -75%);
+        display: grid;
+        width: calc(100% - var(--gutter) * 2);
+        max-width: calc(481px - var(--gutter) * 2);
+        aspect-ratio: 2 / 1;
+        place-items: center;
+        animation: drop var(--drop) ease forwards, var(--animation, none); 
+        
+        &.card:not(:last-child) {
+          --step: var(--page);
+          --animation: fade-out var(--flip) var(--totalDelay) ease forwards;
+          background: hsl(35, 75%, 90%);
+        }
+        
+        img {
+          height: 10%;
+          
+          .card:last-child & {
+            height: 15%;
+          }
+        }
+        
+        &.card-shadow {
+          --animation: fade-in var(--drop) forwards ease, fade-out var(--fade) var(--totalDelay) ease forwards;
+          top: 51.25%;
+          transform: translate(-50%, -25%);
+          background: hsla(0, 0%, 0%, 25%);
+          opacity: 0.125;
+          box-shadow: 0 0 5px hsla(0, 0%, 0%, 25%);  
+          filter: blur(5px);
+        }
+      }
+
+      .progress-bar {
+        position: absolute;
+        left: 50%;
+        top: 75%;
+        transform: translate(-50%, -50%);
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        width: 50%;
+        max-width: calc((481px - var(--gutter) * 2) * 0.5);
+        aspect-ratio: 15 / 1;
+        gap: 2.5%;
+        align-items: center;
+        animation: fade-out var(--fade) var(--totalDelay) ease forwards;
+
+        img {
+          width: 100%;
+        }
+
+        div {
+          --step: var(--index);
+          aspect-ratio: 10 / 1;
+          background: #fff;
+          opacity: 0.5;
+          filter: opacity(0.8);
+          animation: fade-in var(--flip) var(--totalDelay) ease forwards;
+        }
+      }
+    }
+    
+    @keyframes drop {
+      to {
+        transform: translate(-50%, -50%);
+      }
+    }
+    
+    @keyframes fade-in {
+      to {
+        opacity: 1;
+      }
+    }
+
+    @keyframes fade-out {
+      to {
+        visibility: hidden;
+        opacity: 0;
+      }
+    }
+
+    @keyframes scroll {
+      to {
+        transform: translateY(-100vh);
+      }
+    }
+  </style>
+  <style>
+    #portfolio {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      min-height: 100vh;
+      background: #eee;
+      
+      nav {
+        width: 100%;
+        padding: 1em;
+        background: #fff;
+        box-shadow: 0 0 4px hsla(0, 0%, 0%, 5%);
+      }
+      
+      .container {
+        --col: 3;
+        display: grid;
+        grid-template-columns: repeat(var(--col), 1fr);
+        width: 100%;
+        max-width: 1280px;
+        padding: 2em 1em;
+        margin: auto;
+        gap: 1em;
+
+        @media (max-width: 768px) {
+          --col: 2;
+        }
+        
+        @media (max-width: 480px) {
+          --col: 1;
+        }
+
+        .item {
+          display: flex;
+          flex-wrap: wrap;
+          min-width: 0;
+          padding: 1em;
+          align-content: space-between;
+          gap: 1em 0.5em;
+          border-radius: 0.5em;
+          background: #fff;
+          box-shadow: 0 0 4px hsla(0, 0%, 0%, 5%);
+          line-height: 1;
+
+          .title {
+            flex-basis: 100%;
+            padding: 0.125em 0;
+          }
+          
+          img {
+            min-width: 0;
+            flex-basis: 100%;
+            border-radius: 0.25em;
+            background: #aaa;
+          }
+          
+          .tag {
+            display: inline-block;
+            padding: 0.5em 0.75em;
+            border-radius: 0.25em;
+            background: #efefef;
+            font-size: 0.75em;
+          }
+          
+          .btn-area {
+            display: flex;
+            flex-basis: 100%;
+            gap: inherit;
+            
+            a {
+              display: block;
+              flex-grow: 1;
+              padding: 0.75em;
+              border-radius: 0.25em;
+              background: hsl(0, 0%, 90%);
+              border: 1px solid hsla(0, 0%, 0%, 5%);
+              text-align: center;
+              text-decoration: none;
+              transition: background 100ms ease-out, color 100ms ease-out;
+
+              &:hover,
+              &:active {
+                background: hsl(0, 0%, 40%);
+                color: #fff;
+              }
+            }
+          }
+        }
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="wrap">
+    <div id="splash">
+      <div class="container">
+        <div class="card-shadow" style="--page: 4;"></div>
+        <div class="card" style="--page: 1;">
+          <img src="img/splash/splash_text_01.svg" alt="제발 뽑아주세요...">
+        </div>
+        <div class="card" style="--page: 2;">
+          <img src="img/splash/splash_text_02.svg" alt="반드시 은혜를 갚겠습니다...">
+        </div>
+        <div class="card" style="--page: 3;">
+          <img src="img/splash/splash_text_03.svg" alt="파일 정리도 잘 합니다.">
+        </div>
+        <div class="card" style="--page: 5;">
+          <img src="img/splash/splash_text_04.svg" alt="감사합니다!">
+        </div>
+      </div>
+      <div class="progress-bar last-scene">
+        <img src="img/splash/progress-bar-text.svg">
+        <div class="bar-1" style="--index: 0"></div>
+        <div class="bar-2" style="--index: 1"></div>
+        <div class="bar-3" style="--index: 2"></div>
+      </div>
+    </div>
+
+    <section id="portfolio">
+      <nav>준비된 디자이너, 정재훈입니다.</nav>
+      <article class="container">
+        <div class="item">
+          <img src="img/thumb/thumb_beingsand.jpg">
+          <p class="title">빙 샌드 배달 앱</p>
+          <span class="tag">개인 프로젝트</span>
+          <span class="tag">배달 앱</span>
+          <span class="tag">반응형</span>
+          <div class="btn-area">
+            <a href="https://webydiby.github.io/being-sand" target="_blank">웹사이트</a>
+            <a href="pdf/plan_beingsand.pdf" target="_blank">브랜드 기획안</a>
+          </div>
+        </div>
+        <div class="item">
+          <img src="img/thumb/thumb_clobet.png">
+          <p class="title">클로벳 웹사이트 리디자인</p>
+          <span class="tag">개인 프로젝트</span>
+          <span class="tag">쇼핑몰</span>
+          <span class="tag">리디자인</span>
+          <span class="tag">반응형</span>
+          <div class="btn-area">
+            <a href="https://webydiby.github.io/clobet-redesign" target="_blank">웹사이트</a>
+          </div>
+        </div>
+        <div class="item">
+          <img src="img/thumb/thumb_binggrae.jpg">
+          <p class="title">빙그레 웹사이트 리디자인</p>
+          <span class="tag">팀 프로젝트 - 3인</span>
+          <span class="tag">기업</span>
+          <span class="tag">반응형</span>
+          <span class="tag">리디자인</span>
+          <div class="btn-area">
+            <a href="https://sajajarileo.github.io/binggrae" target="_blank">웹사이트</a>
+          </div>
+        </div>
+        <div class="item">
+          <img src="img/thumb/thumb_jomalon.png">
+          <p class="title">조 말론 웹사이트 리디자인</p>
+          <span class="tag">팀 프로젝트 - 3인</span>
+          <span class="tag">기업</span>
+          <span class="tag">PC웹</span>
+          <span class="tag">리디자인</span>
+          <div class="btn-area">
+            <a href="https://simlegion.github.io/Jo-Malone-Renewal-Web-Site" target="_blank">웹사이트</a>
+            <a href="https://simlegion.github.io/Ahn-Teseong-portfolio/plan/%EC%A1%B0%EB%A7%90%EB%A1%A0-1_%EA%B8%B0%ED%9A%8D%EC%95%88.pdf" target="_blank">기획안</a>
+          </div>
+        </div>
+      </article>
+      <div id="proj-a"></div>
+    </section>
+  </div>
+  <script src="js/data.js"></script>
+  <script>
+    const $body = document.body;
+    const $splash = document.getElementById('splash');
+    const $portfolio = document.getElementById('portfolio');
+    const $projects = document.querySelectorAll('[id*="proj-"]');
+    
+    $splash.addEventListener('animationend', (event) => {
+      if (event.target === $splash) {
+        $body.style.overflow = 'visible';
+      }
+    });
+
+    // $projects.forEach((element) => {
+    //   const key = element.id.replace('proj-', '');
+    //   const title = data[key].title;
+    //   element.innerHTML = `
+    //     <div class="item">
+    //       <img src="">
+    //       <p class="title"></p>
+    //       <span class="tag"></span>
+    //       <div class="btn-area">
+    //         <a href="" target="_blank">웹사이트</a>
+    //       </div>
+    //     </div>
+    //   `;
+    // });
+  </script>
+</body>
+</html>
